@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taxi On Tour เรียกรถ 24 ชั่วโมง</title>
+
+<style>
+body {
+  font-family: 'Prompt', sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+/* 🔹 ส่วนหัวโลโก้ + เมนู */
+header {
+  background: #000;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo img {
+  width: 160px;
+  height: auto;
+}
+.menu-icon {
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+}
+.nav-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: left 0.4s;
+  z-index: 999;
+}
+.nav-menu.active {
+  left: 0;
+}
+.nav-menu a {
+  color: #00e0ac;
+  text-decoration: none;
+  font-size: 24px;
+  margin: 15px 0;
+}
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 36px;
+  cursor: pointer;
+  color: #00ff91;
+}
+
+/* 🔹 ปุ่มลอย */
+.floating-buttons {
+  position: fixed;
+  right: 15px;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+.floating-buttons a {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  font-size: 26px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.call-btn { background: #e74c3c; }      /* โทรศัพท์สีแดง */
+.whatsapp-btn { background: #25D366; }  /* WhatsApp สีเขียว */
+.line-btn { background: #00c300; }      /* Line สีเขียวอ่อน */
+
+/* 🔹 เนื้อหาหลัก */
+.content {
+  text-align: center;
+  padding: 30px 15px;
+  background: linear-gradient(to bottom, #002366, #0044cc);
+  color: white;
+}
+.content h1 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+.btn-main {
+  background: #c40000;
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  font-size: 18px;
+  border-radius: 50px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+.btn-line {
+  background: #00ff59;
+  color: black;
+  border: none;
+  padding: 15px 25px;
+  font-size: 18px;
+  border-radius: 50px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+/* 🔹 ส่วนรูปภาพ */
+.taxi-img {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin: 25px auto;
+  border-radius: 12px;
+}
+</style>
+</head>
+<body>
+
+<!-- ✅ ส่วนหัว -->
+<header>
+  <div class="logo">
+    <!-- 🔸 ใส่โลโก้ของคุณตรงนี้ -->
+    <img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000008020.jpg?w=1024" alt="โลโก้"
+style="width:120px; height:120px;
+border-radius:50%;
+box-shadow: 0 0 30px rgba(0, 255, 0, 0.7);
+filter: drop-shadow(0 0 15px rgba(0, 200, 0, 0.9));
+animation: float 3s ease-in-out infinite;">
+</div>
+  </div>
+  <div class="menu-icon" onclick="openMenu()">☰</div>
+</header>
+
+<!-- ✅ เมนูเด้ง -->
+<div class="nav-menu" id="navMenu">
+  <span class="close-btn" onclick="closeMenu()">×</span>
+  <a href="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000008020.jpg?w=410">Home</a>
+  <a href="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000007564.jpg?w=410">Services</a>
+  <a href="#">About</a>
+  <a href="#">Contact</a>
+  <a href="#">Blog</a>
+</div>
+<!-- ✅ เนื้อหา -->
+<section class="content">
+  <h1>บริการ Taxi On Tour โทรเรียกรถแท็กซี่ 24 ชั่วโมง</h1>
+  <!-- 🔴 ปุ่มแถบสีแดง โทรออกได้ -->
+<div style="text-align: center; margin-bottom: 30px;">
+  <a href="tel:0636385818"
+     style="display: inline-block;
+            width: 90%;
+            max-width: 400px;
+            background: linear-gradient(90deg, #ff0000, #cc0000);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px 0;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+            filter: drop-shadow(0 0 15px rgba(255, 80, 80, 0.9));
+            animation: float 3s ease-in-out infinite, pulse 2s infinite;">
+    📞 โทรเรียก Taxi On Tour ได้เลย
+  </a>
+</div>
+
+<style>
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+  50% { box-shadow: 0 0 30px rgba(255, 0, 0, 1); }
+}
+</style>
+<!-- 💚 ปุ่มแถบสีเขียวสะท้อน ติดต่อ LINE -->
+<div style="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000006974.png?w=410">
+  <a href="https://line.me/ti/p/HUebrrGfM-" target="_blank"
+     style="display: inline-block;
+            width: 90%;
+            max-width: 400px;
+            background: linear-gradient(90deg, #00c853, #009624);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px 0;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(0, 255, 100, 0.7);
+            filter: drop-shadow(0 0 15px rgba(0, 255, 100, 0.9));
+            animation: float 3s ease-in-out infinite, pulse-green 2s infinite;">
+    💬 แชทผ่าน LINE กับเรา
+  </a>
+</div>
+
+<style>
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 100, 0.6); }
+  50% { box-shadow: 0 0 30px rgba(0, 255, 100, 1); }
+}
+</style>
+
+  <p>เดินทางอุ่นใจ เรียกใช้ Taxi On Tour ได้ทุกเวลา!</p>
+  <!-- 🔸 ใส่รูปรถแท็กซี่ของคุณตรงนี้ -->
+<img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000007564.jpg?w=450" class="taxi-img" alt="รถแท็กซี่อยุธยา">
+
+<!-- ✅ สไตล์ปุ่มลอย -->
+<style>
+.floating-buttons {
+  position: fixed;
+  bottom: 18px; /* ระยะห่างจากขอบล่าง (เกือบชิดขอบตามที่คุณต้องการ) */
+  right: 18px;  /* ระยะห่างจากขอบขวา */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+/* รูปไอคอนในปุ่ม */
+.icon-img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+}
+
+/* เอฟเฟกต์เวลา hover */
+.icon-img:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+/* โทรศัพท์ */
+.call-btn .icon-img {
+  background: #ff3b30;
+  padding: 8px;
+}
+
+/* WhatsApp */
+.whatsapp-btn .icon-img {
+  background: #25d366;
+  padding: 8px;
+}
+
+/* LINE */
+.line-btn .icon-img {
+  background: #00c300;
+  padding: 8px;
+}
+</style>
+
+  <!-- 🔸 ใส่รูปรถแท็กซี่ของคุณตรงนี้ -->
+  <img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000007564.jpg?w=450" class="taxi-img" alt="รถแท็กซี่อยุธยา">
+</section>
+
+<!-- ✅ สคริปต์ -->
+<script>
+function openMenu() {
+  document.getElementById('navMenu').classList.add('active');
+}
+function closeMenu() {
+  document.getElementById('navMenu').classList.remove('active');
+}
+</script>
+
+</body>
+</html>
+001
+<!-- 🔹 ส่วนสไลด์รูปรถ -->
+<section class="car-slider-section">
+  <h2>🚖 ตัวอย่างรถบริการของเรา</h2>
+  <div class="car-slider">
+    <div class="car-slide-track">
+
+      <!-- 🔸 ใส่รูปรถของคุณได้ตรงนี้ (เปลี่ยนลิงก์ภาพได้เลย) -->
+      <div class="car-slide"><img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000008020.jpg?w=250" alt="รถ1"></div>
+      <div class="car-slide"><img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000007564.jpg?w=450" alt="รถ2"></div>
+      <div class="car-slide"><img src="ใส่ลิงก์รูปรถ3ของคุณที่นี่.jpg" alt="รถ3"></div>
+      <div class="car-slide"><img src="ใส่ลิงก์รูปรถ4ของคุณที่นี่.jpg" alt="รถ4"></div>
+      <div class="car-slide"><img src="ใส่ลิงก์รูปรถ5ของคุณที่นี่.jpg" alt="รถ5"></div>
+
+      <!-- 🔁 ทำซ้ำอีกรอบเพื่อให้สไลด์วนได้ต่อเนื่อง -->
+      <div class="car-slide"><img src="ใส่ลิงก์รูปรถ1ของคุณที่นี่.jpg" alt="รถ1"></div>
+      <div class="car-slide"><img src="ใส่ลิงก์รูปรถ2ของคุณที่นี่.jpg" alt="รถ2"></div>
+      <div class="car-slide"><img src="ใส่ลิงก์รูปรถ3ของคุณที่นี่.jpg" alt="รถ3"></div>
+      <div class="car-slide"><img src="ใส่ลิงก์รูปรถ4ของคุณที่นี่.jpg" alt="รถ4"></div>
+      <div class="car-slide"><img src="ใส่ลิงก์รูปรถ5ของคุณที่นี่.jpg" alt="รถ5"></div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.car-slider-section {
+  background: linear-gradient(to bottom, #ffffff, #e8f3ff);
+  padding: 40px 10px;
+  text-align: center;
+}
+
+.car-slider-section h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0033cc;
+  margin-bottom: 25px;
+}
+
+/* 🔹 ตัวแถบสไลด์ */
+.car-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 160px;
+}
+
+/* 🔹 ตัวเลื่อน */
+.car-slide-track {
+  display: flex;
+  width: calc(250px * 10);
+  animation: scroll 25s linear infinite;
+}
+
+/* 🔹 กรอบรูป */
+.car-slide {
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.car-slide img {
+  width: 220px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: transform 0.4s;
+}
+
+.car-slide img:hover {
+  transform: scale(1.08);
+}
+
+/* 🔹 เคลื่อนไหวเลื่อนไปทางซ้าย */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-250px * 5)); }
+}
+</style>
+
+002
+<!-- ===== เริ่มโค้ดส่วน Taxi Ayutthaya ===== -->
+<style>
+.taxi-section {
+  font-family: 'Prompt', sans-serif;
+  text-align: center;
+  padding: 30px 15px;
+  background: #fff;
+  color: #000;
+}
+.taxi-section h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.taxi-section p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+.taxi-banner {
+  background: linear-gradient(90deg, #8B0000, #C00000);
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 25px;
+}
+.taxi-checklist {
+  text-align: left;
+  display: inline-block;
+  margin-top: 20px;
+}
+.taxi-checklist p {
+  font-size: 20px;
+  margin: 8px 0;
+}
+.taxi-checklist span {
+  color: green;
+  font-size: 24px;
+  margin-right: 8px;
+}
+.taxi-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #d40000;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 0;
+  z-index: 1000;
+  box-shadow: 0 -3px 6px rgba(0,0,0,0.2);
+}
+.taxi-bottom-bar a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ปุ่มลอยด้านขวา */
+.floating-buttons {
+  position: fixed;
+  right: 15px;
+  bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1001;
+}
+.floating-buttons a {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #d40000;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+.floating-buttons a:hover {
+  transform: scale(1.1);
+}
+.floating-buttons img {
+  width: 28px;
+  height: 28px;
+}
+.floating-buttons a.whatsapp { background: #25D366; }
+.floating-buttons a.line { background: #00B900; }
+</style>
+
+<section class="taxi-section">
+  <h2>ปลอดภัย</h2>
+  <p>ต้องการเดินทางในกรุงเทพฯ? <b>Taxi On Tour</b> พร้อมให้บริการตลอด 24 ชั่วโมง ไม่ว่าคุณจะไป <b>เที่ยววัด ไหว้พระ หรือทำธุระ</b> ก็สะดวกสบาย ด้วยบริการที่<br><b>ปลอดภัย รวดเร็ว ราคาเป็นกันเอง</b></p>
+
+  <div class="taxi-banner">
+    <h3>TAXI MONGKOL</h3>
+    <p>เดินทางปลอดภัย สะดวก รวดเร็ว พร้อมให้บริการทั่วไทย</p>
+     <!-- 🔴 ปุ่มแถบสีแดง โทรออกได้ -->
+<div style="text-align: center; margin-bottom: 30px;">
+  <a href="tel:0636385818"
+     style="display: inline-block;
+            width: 90%;
+            max-width: 400px;
+            background: linear-gradient(90deg, #ff0000, #cc0000);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px 0;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+            filter: drop-shadow(0 0 15px rgba(255, 80, 80, 0.9));
+            animation: float 3s ease-in-out infinite, pulse 2s infinite;">
+    📞 โทรเรียก Taxi On Tour ได้เลย
+  </a>
+</div>
+
+<style>
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+  50% { box-shadow: 0 0 30px rgba(255, 0, 0, 1); }
+}
+</style>  
+<!-- ✉️ ปุ่ม Mail (แตะเพื่อเปิดอีเมล) -->
+<a href="mailto:mongkol2010nk@gmail.com?subject=Contact%20Taxi%20Bangkok&body=Hello%20I%20would%20like%20to%20contact%20you..."
+   class="mail-button">
+   📩 <strong>Mail</strong>
+</a>
+
+<style>
+.mail-button {
+  display: inline-block;
+  background: #e3f2fd;
+  color: #1976d2;
+  font-family: 'Prompt', sans-serif;
+  font-size: 1.25em;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.3s ease;
+}
+
+.mail-button:hover {
+  background: #bbdefb;
+  color: #0d47a1;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+</style>
+<!-- 📞 ปุ่มโทรศัพท์ (แตะเพื่อโทรออก) -->
+<a href="tel:0636385818" class="call-button">
+  📞 <strong>063-638-5818</strong>
+</a>
+
+<style>
+.call-button {
+  display: inline-block;
+  background: #ffe6e6;
+  color: #d32f2f;
+  font-family: 'Prompt', sans-serif;
+  font-size: 1.25em;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+.call-button:hover {
+  background: #ffcdd2;
+  color: #b71c1c;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+</style>
+🍎🍎🍎
+  <YOUR_PHONE></b></small></p>
+  </div>
+
+  <div class="taxi-checklist">
+    <p><span>✅</span>บริการรวดเร็ว ตรงเวลา</p>
+    <p><span>✅</span>คนขับชำนาญเส้นทาง</p>
+    <p><span>✅</span>รถสะอาด แอร์เย็น นั่งสบาย</p>
+  </div>
+</section>
+
+ <!-- ปุ่มลอย -->
+<div class="floating-buttons">
+  <a href="tel:<YOUR_PHONE>" class="call"><img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Call"></a>
+  <a href="https://wa.me/<YOUR_PHONE>" target="_blank" class="whatsapp"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+  <a href="<YOUR_LINE_LINK>" target="_blank" class="line"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111398.png" alt="Line"></a>
+</div>
+
+003
+<!-- ===== เริ่มโค้ด Taxi Bangkok ===== -->
+<link href="...." rel="stylesheet">
+
+<style>
+body, .taxi-ayutthaya {
+  font-family: 'Prompt', sans-serif;
+  background: #fff;
+  color: #111;
+  margin: 0;
+  padding: 0;
+}
+
+.taxi-hero {
+  text-align: center;
+  background: #fff;
+  padding: 0;
+}
+.taxi-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.taxi-content {
+  text-align: center;
+  padding: 25px 20px;
+}
+.taxi-content h1 {
+  font-size: 28px;
+  color: #111;
+  line-height: 1.4;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.taxi-content h2 {
+  font-size: 20px;
+  color: #900;
+  font-weight: 600;
+}
+.taxi-content p {
+  font-size: 17px;
+  color: #333;
+  line-height: 1.8;
+}
+
+.call-btn-main {
+  display: inline-block;
+  background: #b00000;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  margin: 20px 0;
+  transition: background 0.3s;
+}
+.call-btn-main:hover {
+  background: #ff0000;
+}
+
+.taxi-checklist {
+  text-align: left;
+  max-width: 500px;
+  margin: 30px auto;
+  line-height: 1.7;
+}
+.taxi-checklist p {
+  font-size: 17px;
+  color: #111;
+  margin: 8px 0;
+}
+.taxi-checklist span {
+  color: #2ecc71;
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+/* ปุ่มลอยทางขวา */
+.floating-buttons {
+  position: fixed;
+  right: 15px;
+  bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1001;
+}
+.floating-buttons a {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+.floating-buttons a:hover { transform: scale(1.1); }
+.floating-buttons img {
+  width: 30px;
+  height: 30px;
+}
+.floating-buttons a.call { background: #f44336; }
+.floating-buttons a.whatsapp { background: #25D366; }
+.floating-buttons a.line { background: #00B900; }
+
+/* แถบสีแดงล่าง */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #b00000;
+  text-align: center;
+  color: #fff;
+  padding: 12px 0;
+  font-size: 20px;
+  font-weight: 600;
+  z-index: 1000;
+}
+.bottom-bar a {
+  color: #fff;
+  text-decoration: none;
+}
+</style>
+
+<div class="taxi-ayutthaya">
+
+  <!-- ส่วนภาพฮีโร่ -->
+  <div class="taxi-hero">
+    <img src="[ใส่ลิงก์รูปภาพแท็กซี่ของคุณที่นี่]" alt="Taxi Ayutthaya">
+  </div>
+
+  <!-- ส่วนเนื้อหา -->
+  <div class="taxi-content">
+    <h1>บริการโทรเรียกแท็กซี่อยุธยา 24 ชั่วโมง เดินทางง่าย ราคายุติธรรม</h1>
+    <!-- 🔴 ปุ่มแถบสีแดง โทรออกได้ -->
+<div style="text-align: center; margin-bottom: 30px;">
+  <a href="tel:0636385818"
+     style="display: inline-block;
+            width: 90%;
+            max-width: 400px;
+            background: linear-gradient(90deg, #ff0000, #cc0000);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px 0;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+            filter: drop-shadow(0 0 15px rgba(255, 80, 80, 0.9));
+            animation: float 3s ease-in-out infinite, pulse 2s infinite;">
+    📞 โทรเรียก Taxi On Tour ได้เลย
+  </a>
+</div>
+
+<style>
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+  50% { box-shadow: 0 0 30px rgba(255, 0, 0, 1); }
+}
+</style>    
+
+    <p>หากคุณกำลังมองหา <b>บริการแท็กซี่ในอยุธยา</b> ที่สะดวก รวดเร็ว และปลอดภัย  
+      <b>TAXI SOMYOD</b> พร้อมให้บริการคุณตลอด 24 ชั่วโมง  
+      ด้วยทีมงานมืออาชีพ รถสะอาด และราคาที่ยุติธรรม</p>
+
+    <h2>ทำไมต้องเลือกแท็กซี่อยุธยากับเรา?</h2>
+    <div class="taxi-checklist">
+      <p><span>✅</span>บริการ 24 ชั่วโมง – เรียกใช้ได้ทุกเวลา ไม่มีวันหยุด</p>
+      <p><span>✅</span>รถสะอาด ปลอดภัย – พนักงานขับสุภาพ มีประสบการณ์</p>
+      <p><span>✅</span>เรียกรถง่าย สะดวก รวดเร็ว – รองรับการจองล่วงหน้าและเรียกรถด่วน</p>
+      <p><span>✅</span>ราคามาตรฐาน ไม่มีบวกเพิ่ม – โปร่งใส ไม่มีแอบแฝง</p>
+      <p><span>✅</span>ครอบคลุมทุกพื้นที่ – กรุงเทพฯและจังหวัดใกล้เคียง</p>
+    </div>
+
+</div>
+</style>
+
+<style>
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 100, 0.6); }
+  50% { box-shadow: 0 0 30px rgba(0, 255, 100, 1); }
+}
+</style>
+
+🏗🏗🏗🏗
+
+<!-- ===== ส่วนท้ายเว็บไซต์ Taxi Mongkol ===== -->
+<footer class="footer-section">
+  
+  <!-- 🔹 แถวโลโก้โซเชียลแนวนอน -->
+  <div class="social-icons">
+    <a href="https://www.facebook.com/share/1Be1p6UtQs/" target="_blank" title="Facebook">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111398.png" alt="Facebook">
+    </a>
+    <a href="https://line.me/ti/p/HUebrrGfM-" target="_blank" title="LINE">
+      <img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000006974.png?w=800" alt="LINE">
+    </a>
+    <a href="mailto:mongkol2010nk@gmail.com" title="Email">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Mail">
+    </a>
+    <a href="https://www.tiktok.com" target="_blank" title="TikTok">
+      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok">
+    </a>
+    <a href="https://wa.me/66636385818" target="_blank" title="WhatsApp">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+    </a>
+    <a href="https://www.wechat.com" target="_blank" title="WeChat">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WeChat">
+    </a>
+  </div>
+
+  <!-- 🔸 ส่วนจองทริป -->
+  <div class="booking-section">
+    <h2 id="bookingBtn" class="booking-title">จองทริปเดินทาง</h2>
+    <p class="sub-text">ทริปเหมารถท่องเที่ยว<br>เหมารถแท็กซี่ไปต่างจังหวัด</p>
+    <p class="phone-text">
+      📞 โทร <a href="tel:0636385818" class="phone-link">063-63-85818</a>
+    </p>
+    <p class="service-hour">โทรเรียกได้ 24 ชั่วโมง</p>
+  </div>
+
+  <!-- 🔸 โลโก้และข้อมูล -->
+  <div class="info-section">
+    <h3 class="brand">แท็กซี่มงคล</h3>
+    <div class="logo-box">
+      <!-- ✅ ใส่โลโก้ของคุณที่นี่ -->
+      <img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1759749398988.jpg?w=1024" alt="โลโก้ของคุณ" class="logo-img">
+    </div>
+    <p class="address">2หมู่8 เทพารักษ์ นครราชสีมา ประเทศไทย</p>
+    <a href="https://mongkol2010.simdif.com" target="_blank" class="website-link">www.mongkol2010.simdif.com</a>
+  </div>
+
+  <div class="copyright">
+    © 2025 Taxi Mongkol | All rights reserved.
+  </div>
+</footer>
+
+<!-- ✅ CSS -->
+<style>
+  .footer-section {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 30px 10px;
+    font-family: "Arial", sans-serif;
+  }
+
+  /* โลโก้โซเชียล */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+  .social-icons a img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .social-icons a img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 12px rgba(255,255,255,0.6);
+  }
+
+  /* ส่วนจองทริป */
+  .booking-title {
+    color: #ff0088;
+    font-size: 22px;
+    cursor: pointer;
+  }
+  .sub-text {
+    color: #00d4a4;
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  .phone-text {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  .phone-link {
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 22px;
+  }
+  .phone-link:hover { text-decoration: underline; }
+  .service-hour {
+    color: #b3b3b3;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  /* โลโก้และข้อมูล */
+  .brand { font-size: 22px; margin-top: 20px; color: #fff; }
+  .logo-box {
+    margin: 10px auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-img {
+    width: 180px;
+    border-radius: 12px;
+  }
+  .address { margin: 8px 0; }
+  .website-link {
+    color: #1a6cff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .website-link:hover { text-decoration: underline; }
+
+  /* ลิขสิทธิ์ */
+  .copyright {
+    color: #888;
+    font-size: 13px;
+    margin-top: 20px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .social-icons img {
+      width: 34px;
+      height: 34px;
+    }
+  }
+</style>
+
+<!-- ===== Popup จองทริป ===== -->
+<div id="bookingPopup" class="popup-overlay">
+  <div class="popup-content">
+    <h3>กรอกข้อมูลจองทริปเดินทาง</h3>
+    <p>คุณสามารถติดต่อได้ที่เบอร์ <b>063-63-85818</b> หรือกรอกแบบฟอร์มนี้</p>
+    <form>
+      <input type="text" placeholder="ชื่อของคุณ" required><br>
+      <input type="tel" placeholder="เบอร์ติดต่อ" required><br>
+      <textarea placeholder="รายละเอียดทริป" required></textarea><br>
+      <button type="submit">ส่งข้อมูล</button>
+    </form>
+    <button id="closePopup">ปิด</button>
+  </div>
+</div>
+
+<!-- ===== CSS ===== -->
+<style>
+  body { margin:0; }
+  .footer-section {
+    background-color: #000;
+    color: #fff;
+    padding: 40px 20px;
+    font-family: "Arial", sans-serif;
+    text-align: center;
+  }
+
+  /* แถบโซเชียล */
+  .social-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: #008a38;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  .social-icon {
+    background: #00a94f;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .social-icon:hover {
+    background: #00cc5c;
+  }
+
+  /* จองทริป */
+  .booking-title {
+    color: #ff0088;
+    font-size: 22px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  .sub-text {
+    color: #00d4a4;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .phone-text {
+    color: #fff;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  .phone-number {
+    font-weight: bold;
+    font-size: 22px;
+  }
+  .service-hour {
+    color: #b3b3b3;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* โลโก้และข้อมูล */
+  .brand {
+    color: #fff;
+    font-size: 22px;
+    margin-top: 20px;
+  }
+  .logo-box {
+    border: 2px dashed #00a94f;
+    border-radius: 8px;
+    color: #00a94f;
+    padding: 20px;
+    margin: 10px auto;
+    width: 260px;
+  }
+  .address {
+    color: #fff;
+    margin: 6px 0;
+  }
+  .website-link {
+    color: #1a6cff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .website-link:hover {
+    text-decoration: underline;
+  }
+
+  /* เมนูเชื่อมต่อ */
+  .menu-section {
+    margin-top: 30px;
+  }
+  .menu-section a {
+    color: #00a94f;
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: 600;
+  }
+  .menu-section a:hover {
+    text-decoration: underline;
+  }
+
+  /* ลิขสิทธิ์ */
+  .copyright {
+    color: #7a7a7a;
+    font-size: 13px;
+    margin-top: 30px;
+  }
+
+  /* Popup */
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  .popup-content {
+    background: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: left;
+  }
+  .popup-content h3 {
+    color: #ff0088;
+  }
+  .popup-content input,
+  .popup-content textarea {
+    width: 100%;
+    margin: 6px 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  .popup-content button {
+    background: #008a38;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .popup-content button:hover {
+    background: #00b44b;
+  }
+</style>
+
+<!-- ===== JavaScript Popup ===== -->
+<script>
+  document.getElementById("bookingBtn").addEventListener("click", () => {
+    document.getElementById("bookingPopup").style.display = "flex";
+  });
+  document.getElementById("closePopup").addEventListener("click", () => {
+    document.getElementById("bookingPopup").style.display = "none";
+  });
+</script
+
+<!-- ✅ ปุ่มลอยติดต่อ Taxi Mongkol -->
+<div class="floating-buttons">
+  <!-- 📞 โทรศัพท์ -->
+  <a href="tel:0636385818" class="contact-btn call-btn" title="โทรหาเรา">
+    <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone Logo">
+  </a>
+
+  <!-- 💬 WhatsApp -->
+  <a href="https://wa.me/66636385818" class="contact-btn whatsapp-btn" target="_blank" title="WhatsApp">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp Logo">
+  </a>
+
+  <!-- 💚 LINE -->
+  <a href="https://line.me/ti/p/HUebrrGfM-" class="contact-btn line-btn" target="_blank" title="LINE">
+    <img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000006974.png?w=800" alt="LINE Logo">
+  </a>
+</div>
+
+<!-- ✅ สไตล์ปุ่มลอย -->
+<style>
+.floating-buttons {
+  position: fixed;
+  bottom: 18px;  /* เกือบชิดขอบล่างของจอ */
+  right: 18px;   /* ชิดมุมขวา */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 9999;
+  animation: fadeIn 1s ease-in;
+}
+
+/* ✅ ปุ่มแต่ละอัน */
+.contact-btn img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0,0,0,0.25);
+  background: #fff;
+  padding: 6px;
+  transition: all 0.3s ease;
+}
+
+/* เอฟเฟกต์ Hover */
+.contact-btn:hover img {
+  transform: scale(1.12);
+  box-shadow: 0 0 25px rgba(0,0,0,0.35);
+}
+
+/* ปุ่มโทรศัพท์ */
+.call-btn img {
+  background-color: #ff3b30; /* สีแดงสด */
+}
+
+/* ปุ่ม WhatsApp */
+.whatsapp-btn img {
+  background-color: #25d366; /* สีเขียว WhatsApp */
+}
+
+/* ปุ่ม LINE */
+.line-btn img {
+  background-color: #00c300; /* สีเขียว LINE */
+}
+
+/* แอนิเมชันเปิดตัว */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+🏖🏖
+
+🌋
+
+  <!-- 🔸 โลโก้และข้อมูล -->
+  <div class="info-section">
+    <h3 class="brand">แท็กซี่มงคล</h3>
+    <div class="logo-box">
+      <!-- ✅ ใส่โลโก้ของคุณที่นี่ -->
+      <img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1759749403770.jpg?w=1024" alt="โลโก้ของคุณ" class="logo-img">
+    </div>
+    
+🗺🗺
+ลองเทส
+<section class="taxi-section">
+  <h2>บริการรถเช่าพร้อมคนขับทั่วไทย 24 ชั่วโมง</h2>
+  <p>ต้องการเดินทางในกรุงเทพฯ? <b>Taxi On Tour</b> พร้อมให้บริการตลอด 24 ชั่วโมง ไม่ว่าคุณจะไป <b>เที่ยววัด ไหว้พระ หรือทำธุระ</b> ก็สะดวกสบาย ด้วยบริการที่<br><b>ปลอดภัย รวดเร็ว ราคาเป็นกันเอง</b></p>
+
+  <div class="taxi-banner">
+    <h3>TAXI MONGKOL</h3>
+    <p>เดินทางปลอดภัย สะดวก รวดเร็ว พร้อมให้บริการทั่วไทย</p>
+    <!-- ✉️ ปุ่ม Mail (แตะเพื่อเปิดอีเมล) -->
+<a href="mailto:mongkol2010nk@gmail.com?subject=Contact%20Taxi%20Bangkok&body=Hello%20I%20would%20like%20to%20contact%20you..."
+   class="mail-button">
+   📩 <strong>Mail</strong>
+</a>
+
+<style>
+.mail-button {
+  display: inline-block;
+  background: #e3f2fd;
+  color: #1976d2;
+  font-family: 'Prompt', sans-serif;
+  font-size: 1.25em;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.3s ease;
+}
+
+.mail-button:hover {
+  background: #bbdefb;
+  color: #0d47a1;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+</style>
+<!-- 📞 ปุ่มโทรศัพท์ (แตะเพื่อโทรออก) -->
+<a href="tel:0636385818" class="call-button">
+  📞 <strong>063-638-5818</strong>
+</a>
+
+<style>
+  .call-button {
+    display: inline-block;
+    background: #ffe6e6;
+    color: #d32f2f;
+    font-family: 'Prompt', sans-serif;
+    font-size: 1.25em;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+  
+  .call-button:hover {
+    background: #ffcdd2;
+    color: #b71c1c;
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  }
+</style>
+</div>
+  <div class="taxi-checklist">
+    <p><span>✅</span>บริการรวดเร็ว ตรงเวลา</p>
+    <p><span>✅</span>คนขับชำนาญเส้นทาง</p>
+    <p><span>✅</span>รถสะอาด แอร์เย็น นั่งสบาย</p>
+  </div>
+</sectio>
+
+🍧🍧
+<section class="taxi-section">
+  <h2>ปลอดภัย</h2>
+  <p>ต้องการเดินทางในกรุงเทพฯ? <b>Taxi On Tour</b> พร้อมให้บริการตลอด 24 ชั่วโมง ไม่ว่าคุณจะไป <b>เที่ยววัด ไหว้พระ หรือทำธุระ</b> ก็สะดวกสบาย ด้วยบริการที่<br><b>ปลอดภัย รวดเร็ว ราคาเป็นกันเอง</b></p>
+
+  <div class="taxi-banner">
+    <h3>TAXI MONGKOL</h3>
+    <p>เดินทางปลอดภัย สะดวก รวดเร็ว พร้อมให้บริการทั่วไทย</p>
+    <p><small>เว็บไซต์: <b>mongkol2010.simdif.com</b> | โทร: 0636385818<b><YOUR_PHONE></b></small></p>
+  </div>
+
+  <div class="taxi-checklist">
+    <p><span>✅</span>บริการรวดเร็ว ตรงเวลา</p>
+    <p><span>✅</span>คนขับชำนาญเส้นทาง</p>
+    <p><span>✅</span>รถสะอาด แอร์เย็น นั่งสบาย</p>
+  </div>
+</sectio>
+🌐🌐🌐
+ ลองเทสLien
+
+🏛🏛🏛🏛
+ ลองเทสเบอร์โทร
+   <!-- 🔴 ปุ่มแถบสีแดง โทรออกได้ -->
+<div style="text-align: center; margin-bottom: 30px;">
+  <a href="tel:0636385818"
+     style="display: inline-block;
+            width: 90%;
+            max-width: 400px;
+            background: linear-gradient(90deg, #ff0000, #cc0000);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px 0;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+            filter: drop-shadow(0 0 15px rgba(255, 80, 80, 0.9));
+            animation: float 3s ease-in-out infinite, pulse 2s infinite;">
+    📞 โทรเรียก Taxi On Tour ได้เลย
+  </a>
+</div>
+
+<style>
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+  50% { box-shadow: 0 0 30px rgba(255, 0, 0, 1); }
+}
+</style>
+🍭🍭🍭
+lienต่อโทร
+<!-- 💚 ปุ่มแถบสีเขียวสะท้อน ติดต่อ LINE -->
+<div style="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000006974.png?w=410">
+  <a href="https://line.me/ti/p/HUebrrGfM-" target="_blank"
+     style="display: inline-block;
+            width: 90%;
+            max-width: 350px;
+            background: linear-gradient(60deg, #00c853, #009624);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 15px 0;
+            border-radius: 80px;
+            box-shadow: 0 0 90px rgba(0, 255, 100, 0.7);
+            filter: drop-shadow(0 0 15px rgba(0, 255, 100, 0.9));
+            animation: float 3s ease-in-out infinite, pulse-green 2s infinite;">
+    💬 แชทผ่าน LINE กับเรา
+  </a>
+</div>
+
+🌏🌏🌏🌏
+ ลองเทส หัว
+ <!-- ✅ ส่วนหัว -->
+<header>
+  <div class="logo">
+    <!-- 🔸 ใส่โลโก้ของคุณตรงนี้ -->
+    <img src="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000008020.jpg?w=1024" alt="โลโก้"
+style="width:120px; height:120px;
+border-radius:50%;
+box-shadow: 0 0 30px rgba(0, 255, 0, 0.7);
+filter: drop-shadow(0 0 15px rgba(0, 200, 0, 0.9));
+animation: float 3s ease-in-out infinite;">
+</div>
+  </div>
+  <div class="menu-icon" onclick="openMenu()">☰</div>
+</header>
+
+<!-- ✅ เมนูเด้ง -->
+<div class="nav-menu" id="navMenu">
+  <span class="close-btn" onclick="closeMenu()">×</span>
+  <a href="https://mongkol20010.wordpress.com/wp-content/uploads/2025/08/1000008020.jpg?w=410">Home</a>
+  
+<body>
+ 💢💢💢💢
+ สร้างหน้าปกใหม่สีน้ำเงิน
+ <!-- ตัวอย่างกรอบสี่เหลี่ยมพื้นหลัง -->
+<div class="background-box">
+  <!-- คุณสามารถใส่ข้อความ, ปุ่ม, หรือข้อมูลอื่นๆ ที่นี่ -->
+  <p>ใส่ข้อความหรือข้อมูลของคุณได้ที่นี่</p>
+</div>
+
+<style>
+/* กรอบสี่เหลี่ยมพื้นหลัง */
+.background-box {
+  width: 400px;              /* กำหนดความกว้าง */
+  height: 200px;             /* กำหนดความสูง */
+  background-color: #0057B8; /* สีพื้นหลังน้ำเงิน (เปลี่ยนได้) */
+  border-radius: 8px;        /* ปรับมุมโค้งตามต้องการ */
+  padding: 20px;             /* ระยะห่างภายในกรอบ */
+  box-sizing: border-box;    /* ให้ padding อยู่ในขนาดรวม */
+  color: #FFFFFF;            /* สีตัวอักษร (เปลี่ยนได้) */
+  display: flex;
+  align-items: center;       /* จัดกลางแนวตั้ง */
+  justify-content: center;   /* จัดกลางแนวนอน */
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* เงาเล็กน้อย */
+}
+</style>
